@@ -14,6 +14,14 @@ mv .vim $HOME/.vim
 mv .vimrc $HOME/.vimrc
 ```
 
+Then, you need to install Vundle.vim (https://github.com/gmarik/Vundle.vim):
+
+```bash
+git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+```
+
+This being done, you can install all the plugins (bundles).
+
 # Bundles installation
 
 ## Basic install
