@@ -138,6 +138,8 @@
             "Bundle 'LaTeX-Box-Team/LaTeX-Box'
             "Bundle 'vim-scripts/TeX-9'
         endif
+
+    call vundle#end()
 "}
 
 " General {
