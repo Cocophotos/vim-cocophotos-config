@@ -52,7 +52,7 @@
 
 " Bundles {
     " Deps
-        Bundle 'gmarik/vundle'
+        Bundle 'gmarik/Vundle.vim'
         if executable('ack')
             Bundle 'mileszs/ack.vim'
         endif
