@@ -44,7 +44,7 @@
     "Bundle {
     "Ensure that vundle works
         filetype off
-        set rtp+=~/.vim/bundle/Vundle.vim
+        set rtp+=~/.vim/bundle/vundle
         call vundle#rc()
     "}
 
@@ -200,6 +200,15 @@
             autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
         augroup END
     endif
+    
+    "set conceal level and cursor for easier interaction
+    if has('conceal')
+        set conceallevel=2
+        set concealcursor=""
+        
+        let g:vim_json_syntax_concealcursor=""
+        let g:indentLine_noConcealCursor=""
+    endif
 
     "set clipboard=unnamedplus "Always save copy into system clipboard
     "vmap <C-c> "+yi
@@ -253,6 +262,12 @@
     autocmd FileType vim                 let b:comment_leader = '" '
     noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
     noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+    " Some tips worth having
+    "{
+    "Insert new line in NORMAL mode by pressing Enter
+    nmap <CR> o<Esc>
+    "}
 
 " }
 
@@ -332,24 +347,7 @@
         set tags+=./tags;tags
     " }
 
-    " Cpp OmniComplete Options {        
-    "    let OmniCpp_NamespaceSearch = 1
-    "    let OmniCpp_GlobalScopeSearch = 1
-    "    let OmniCpp_ShowAccess = 1
-    "    let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-    "    let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-    "    let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-    "    "let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-    "    "let OmniCpp_DefaultNamespaces = ["std", "boost"]
         
-    "    " automatically open and close the popup menu / preview window
-    "    au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-    "    set completeopt=menuone,menu,longest,preview
-
-    "    "For CPP autocompletion
-    "    au BufNewFile,BufRead,BufEnter *.cpp,*.hpp,*h set omnifunc=omni#cpp#complete#Main
-    " }
-    
     " Ultisnips playing nice with YCM {
         " make YCM compatible with UltiSnips (using supertab)
         let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -360,6 +358,22 @@
         let g:UltiSnipsExpandTrigger = "<tab>"
         let g:UltiSnipsJumpForwardTrigger = "<tab>"
         let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+        set ttimeoutlen=50  " for faster InsertLeave triggering
+        
+        " Disable for these filetypes:
+        let g:ycm_filetype_blacklist = {
+            \ 'tagbar' : 1,
+            \ 'qf' : 1,
+            \ 'notes' : 1,
+            \ 'markdown' : 1,
+            \ 'unite' : 1,
+            \ 'text' : 1,
+            \ 'vimwiki' : 1,
+            \ 'pandoc' : 1,
+            \ 'infolog' : 1,
+            \ 'mail' : 1,
+            \ }
     "} 
 
     " YCM C++ {
@@ -431,6 +445,10 @@
      augroup textile
          au! BufNewFile,BufRead *.tl,*.txtl,*.textitle set filetype=textile
      augroup END
+
+    " For XML folding
+    let g:xml_syntax_folding=1
+    au FileType xml setlocal foldmethod=syntax
 
     "Turn filetype detection on
     filetype plugin indent on
