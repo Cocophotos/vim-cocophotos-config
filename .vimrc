@@ -58,7 +58,7 @@
         endif
 
         if !exists('g:cocophotos_bundle_groups')
-            let g:cocophotos_bundle_groups=['general', 'programming', 'web', 'latex']
+            let g:cocophotos_bundle_groups=['general', 'textobj', 'programming', 'web', 'latex']
         endif
 
         " General
@@ -69,11 +69,6 @@
             Bundle 'Lokaltog/vim-easymotion'
             Bundle 'kien/ctrlp.vim'
             Bundle 'altercation/vim-colors-solarized'
-            
-            "Dependencies of vim-snipmate
-            "Bundle 'MarcWeber/vim-addon-mw-utils'
-            "Bundle 'tomtom/tlib_vim'
-            "Bundle 'garbas/vim-snipmate'
             
             Bundle 'sirver/ultisnips'
             Bundle 'honza/vim-snippets'
@@ -87,9 +82,28 @@
             Bundle 'chrisbra/csv.vim'
 
             Bundle 'tpope/vim-surround'
+
+            "Allow ANSI color code in Vim (trough conceal features)
+            Bundle 'powerman/vim-plugin-AnsiEsc'
         endif
 
-    " General Programming
+        "Text objects
+        if count(g:cocophotos_bundle_groups, 'textobj')
+            Bundle 'austintaylor/vim-indentobject'
+            Bundle 'bootleq/vim-textobj-rubysymbol'
+            Bundle 'coderifous/textobj-word-column.vim'
+            Bundle 'kana/vim-textobj-datetime'
+            Bundle 'kana/vim-textobj-entire'
+            Bundle 'kana/vim-textobj-function'
+            Bundle 'kana/vim-textobj-user'
+            Bundle 'lucapette/vim-textobj-underscore'
+            Bundle 'nathanaelkane/vim-indent-guides'
+            Bundle 'nelstrom/vim-textobj-rubyblock'
+            Bundle 'thinca/vim-textobj-function-javascript'
+            Bundle 'vim-scripts/argtextobj.vim'
+        endif
+
+        " General Programming
         if count(g:cocophotos_bundle_groups, 'programming')
             Bundle 'tpope/vim-fugitive'
             if executable('ctags')
@@ -121,7 +135,7 @@
             Bundle 'Yggdroot/indentLine'
         endif
 
-    "Web programming
+        "Web programming
         if count(g:cocophotos_bundle_groups, 'web')
             Bundle 'digitaltoad/vim-jade'
             Bundle 'groenewege/vim-less'
@@ -132,7 +146,7 @@
             Bundle 'marijnh/tern_for_vim'
         endif
 
-    "LaTeX
+        "LaTeX
         if count(g:cocophotos_bundle_groups, 'latex')
             "Bundle 'git://git.code.sf.net/p/atp-vim/code'
             "Bundle 'LaTeX-Box-Team/LaTeX-Box'
@@ -148,7 +162,9 @@
 
 " Vim UI {
     " Font
-    set gfn=Liberation\ Mono\ Regular:h13
+    set anti enc=utf-8
+    set gfn=Source\ Code\ Pro\ Regular:h13
+    "set gfn=Liberation\ Mono\ Regular:h13
     " Color scheme
     
     set background=dark

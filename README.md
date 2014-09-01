@@ -55,3 +55,11 @@ If you want the C++ semantic completer support, use:
 ```
 
 Please refer to the YouCompleteMe documentation for more information (https://github.com/Valloric/YouCompleteMe)
+
+# Bundles description
+
+TBA
+
+# Cheat Sheet 
+
+TBA
