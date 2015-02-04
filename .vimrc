@@ -1,6 +1,6 @@
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
 " To update : 
-" vim +BundleInstall! +BundleClean +q
+" vim +PluginInstall! +PluginClean +q
 
 " Shortcut sheet
 " --------------
@@ -37,11 +37,15 @@
 "Environment {
 
     "Basics {
-        set nocompatible        
+        set nocompatible
+        "Ensure a POSIX-compliant SHELL so that Vundle will run properly
+        if $SHELL =~ 'bin/fish'
+            set shell=/bin/bash
+        endif
     "}
     
     
-    "Bundle {
+    "Plugin {
     "Ensure that vundle works
         filetype off
         set rtp+=~/.vim/bundle/Vundle.vim
@@ -50,11 +54,12 @@
 
 "}
 
-" Bundles {
+" Plugins {
     " Deps
-        Bundle 'gmarik/Vundle.vim'
+        Plugin 'gmarik/Vundle.vim'
+
         if executable('ack')
-            Bundle 'mileszs/ack.vim'
+            Plugin 'mileszs/ack.vim'
         endif
 
         if !exists('g:cocophotos_bundle_groups')
@@ -63,94 +68,107 @@
 
         " General
         if count(g:cocophotos_bundle_groups, 'general')
-            Bundle 'scrooloose/nerdtree'
-            Bundle 'matchit.zip'
-            Bundle 'Lokaltog/vim-powerline'
-            Bundle 'Lokaltog/vim-easymotion'
-            Bundle 'kien/ctrlp.vim'
-            Bundle 'altercation/vim-colors-solarized'
+            Plugin 'scrooloose/nerdtree'
+            Plugin 'matchit.zip'
+            Plugin 'Lokaltog/vim-powerline'
+            Plugin 'Lokaltog/vim-easymotion'
+            Plugin 'kien/ctrlp.vim'
+            Plugin 'altercation/vim-colors-solarized'
             
-            Bundle 'sirver/ultisnips'
-            Bundle 'honza/vim-snippets'
+            Plugin 'sirver/ultisnips'
+            Plugin 'honza/vim-snippets'
 
             "Buffers on steroids
-            Bundle 'jlanzarotta/bufexplorer'
+            Plugin 'jlanzarotta/bufexplorer'
 
             "Run an interactive program inside Vim (like bash)
-            Bundle 'basepi/vim-conque'
+            Plugin 'basepi/vim-conque'
 
-            Bundle 'chrisbra/csv.vim'
+            Plugin 'chrisbra/csv.vim'
 
-            Bundle 'tpope/vim-surround'
+            Plugin 'tpope/vim-surround'
 
-            "Allow ANSI color code in Vim (trough conceal features)
-            Bundle 'powerman/vim-plugin-AnsiEsc'
+            "Allow ANSI color code in Vim (through conceal features)
+            Plugin 'powerman/vim-plugin-AnsiEsc'
+
+            "Allow fish shell syntax
+            Plugin 'dag/vim-fish'
+
+            "Powerfull Vim SHELL (in pure Vim Script)
+            Plugin 'Shougo/vimshell.vim'
+            Plugin 'Shougo/vimproc.vim'
+
+            "Yankring
+            Plugin 'vim-scripts/YankRing.vim'
         endif
 
         "Text objects
         if count(g:cocophotos_bundle_groups, 'textobj')
-            Bundle 'austintaylor/vim-indentobject'
-            Bundle 'bootleq/vim-textobj-rubysymbol'
-            Bundle 'coderifous/textobj-word-column.vim'
-            Bundle 'kana/vim-textobj-datetime'
-            Bundle 'kana/vim-textobj-entire'
-            Bundle 'kana/vim-textobj-function'
-            Bundle 'kana/vim-textobj-user'
-            Bundle 'lucapette/vim-textobj-underscore'
-            Bundle 'nathanaelkane/vim-indent-guides'
-            Bundle 'nelstrom/vim-textobj-rubyblock'
-            Bundle 'thinca/vim-textobj-function-javascript'
-            Bundle 'vim-scripts/argtextobj.vim'
+            Plugin 'austintaylor/vim-indentobject'
+            Plugin 'bootleq/vim-textobj-rubysymbol'
+            Plugin 'coderifous/textobj-word-column.vim'
+            Plugin 'kana/vim-textobj-datetime'
+            Plugin 'kana/vim-textobj-entire'
+            Plugin 'kana/vim-textobj-function'
+            Plugin 'kana/vim-textobj-user'
+            Plugin 'lucapette/vim-textobj-underscore'
+            Plugin 'nathanaelkane/vim-indent-guides'
+            Plugin 'nelstrom/vim-textobj-rubyblock'
+            Plugin 'thinca/vim-textobj-function-javascript'
+            Plugin 'vim-scripts/argtextobj.vim'
         endif
 
         " General Programming
         if count(g:cocophotos_bundle_groups, 'programming')
-            Bundle 'tpope/vim-fugitive'
+            Plugin 'tpope/vim-fugitive'
             if executable('ctags')
-                Bundle 'majutsushi/tagbar'
+                Plugin 'majutsushi/tagbar'
             endif
             
-            "Bundle 'Shougo/neocomplcache'
-            Bundle 'Valloric/YouCompleteMe'
+            "Plugin 'Shougo/neocomplcache'
+            Plugin 'Valloric/YouCompleteMe'
             
-            Bundle 'vim-perl/vim-perl'
-            Bundle 'rainux/vim-vala'
+            Plugin 'vim-perl/vim-perl'
+            Plugin 'rainux/vim-vala'
             "View undo tree in Vim
-            Bundle 'sjl/gundo.vim'
+            Plugin 'sjl/gundo.vim'
             "View color parentheses when they are mingled
-            Bundle 'kien/rainbow_parentheses.vim'
+            Plugin 'kien/rainbow_parentheses.vim'
             
-            Bundle 'ervandew/supertab'
+            Plugin 'ervandew/supertab'
 
             " Allow fast tabularization of input
-            Bundle 'godlygeek/tabular'
+            Plugin 'godlygeek/tabular'
             
             "Vim C++11 support
-            Bundle 'vim-scripts/Cpp11-Syntax-Support'
+            Plugin 'vim-scripts/Cpp11-Syntax-Support'
             
             "Vim CMake support
-            Bundle 'vhdirk/vim-cmake'
+            Plugin 'vhdirk/vim-cmake'
             
             "Indentation guide useful in Python for example
-            Bundle 'Yggdroot/indentLine'
+            Plugin 'Yggdroot/indentLine'
+            
+            "Expanding selection by pressing + (or _ to shrink)
+            Plugin 'terryma/vim-expand-region'
         endif
 
         "Web programming
         if count(g:cocophotos_bundle_groups, 'web')
-            Bundle 'digitaltoad/vim-jade'
-            Bundle 'groenewege/vim-less'
-            Bundle 'pangloss/vim-javascript'
-            Bundle 'elzr/vim-json'
+            Plugin 'digitaltoad/vim-jade'
+            Plugin 'groenewege/vim-less'
+            Plugin 'pangloss/vim-javascript'
+            Plugin 'elzr/vim-json'
 
             "TernJS better completion for javascript
-            Bundle 'marijnh/tern_for_vim'
+            Plugin 'marijnh/tern_for_vim'
         endif
 
         "LaTeX
         if count(g:cocophotos_bundle_groups, 'latex')
-            "Bundle 'git://git.code.sf.net/p/atp-vim/code'
-            "Bundle 'LaTeX-Box-Team/LaTeX-Box'
-            "Bundle 'vim-scripts/TeX-9'
+            "Plugin 'git://git.code.sf.net/p/atp-vim/code'
+            "Plugin 'LaTeX-Box-Team/LaTeX-Box'
+            "Plugin 'vim-scripts/TeX-9'
         endif
 
     call vundle#end()
@@ -427,15 +445,18 @@
         let g:indentLine_fileTypeExclude = ['text', 'sh']
     "}
     
-    " ctrlp {
-    " }
-
     " CSV {
         au BufEnter *.csv if !exists('b:csv_arrange_leftalign') | let b:csv_arrange_leftalign = 1 | endif
     " }
+
+    " YankRing {
+        let g:yankring_history_file = '.yankring_history'
+        nnoremap ,yr :YRShow<CR>
+        nnoremap C-y :YRShow<CR>
+    " }
     
     " Custom settings {
-    map <Leader>jt !python -m json.tool<CR>
+        map <Leader>jt !python -m json.tool<CR>
     " }
 " }
 

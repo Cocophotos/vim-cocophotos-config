@@ -58,8 +58,8 @@ Please refer to the YouCompleteMe documentation for more information (https://gi
 
 # Bundles description
 
-TBA
+- YankRing: https://github.com/vim-scripts/YankRing.vim (allow a circular buffer)
 
 # Cheat Sheet 
 
-TBA
+- YankRing: default keys : <C-P> after paste for previous yanked text, <C-N> after paste for next yanked text
