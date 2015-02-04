@@ -62,4 +62,4 @@ Please refer to the YouCompleteMe documentation for more information (https://gi
 
 # Cheat Sheet 
 
-- YankRing: default keys : <C-P> after paste for previous yanked text, <C-N> after paste for next yanked text
+- YankRing: default keys : \<C-P\> after paste for previous yanked text, \<C-N\> after paste for next yanked text
