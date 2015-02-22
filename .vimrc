@@ -85,6 +85,9 @@
             Plugin 'Shougo/neomru.vim'
             Plugin 'Shougo/unite.vim'
 
+            "unite outline to get a overview of everything in special files
+            Plugin 'Shougo/unite-outline'
+
             "Yankring
             Plugin 'vim-scripts/YankRing.vim'
         endif
@@ -480,6 +483,7 @@
     nnoremap <leader>e :<C-u>Unite -buffer-name=buffer  -vertical -start-insert buffer<cr>
     nnoremap <leader>/ :<C-u>Unite -no-quit -buffer-name=search -vertical -start-insert grep:.<cr>
     nnoremap <leader>l :<C-u>Unite -buffer-name=line -vertical -start-insert line<cr>
+    nnoremap <leader>o :<C-u>Unite -buffer-name=outline -vertical -start-insert outline<cr>
 
     autocmd FileType unite call s:unite_settings()
 
