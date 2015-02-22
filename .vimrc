@@ -7,11 +7,6 @@
 " leader : ,
 " localleader : -
 "
-" NERDTree
-" --------
-" Ctrl+e : Toggle Nerdtree
-" leader+e : Nerdtree find function
-"
 " Tagbar
 " --------
 "  leader+tt : Toggle tagbar
@@ -20,17 +15,13 @@
 " --------
 "  leader+g : Toggle Gundo plugin
 "
-" Ctrlp
-" ------
-" Ctrl+p : toggle ctrlp
-"
-" BufExplorer
-" ---------
-"  leader+bv : buffers vertically opened
-"
 "  Vim-CMake
 "  ---------
 "  run :CMake it should work
+"
+"  Unite
+"  --------
+"  leader+un
 
 
 
@@ -63,29 +54,19 @@
         endif
 
         if !exists('g:cocophotos_bundle_groups')
-            let g:cocophotos_bundle_groups=['general', 'textobj', 'programming', 'web', 'latex']
+            let g:cocophotos_bundle_groups=['general', 'textobj', 'programming', 'web', 'latex', 'spelling']
         endif
 
         " General
         if count(g:cocophotos_bundle_groups, 'general')
-            Plugin 'scrooloose/nerdtree'
             Plugin 'matchit.zip'
             Plugin 'Lokaltog/vim-powerline'
             Plugin 'Lokaltog/vim-easymotion'
-            Plugin 'kien/ctrlp.vim'
             Plugin 'altercation/vim-colors-solarized'
             
             Plugin 'sirver/ultisnips'
             Plugin 'honza/vim-snippets'
-
-            "Buffers on steroids
-            Plugin 'jlanzarotta/bufexplorer'
-
-            "Run an interactive program inside Vim (like bash)
-            Plugin 'basepi/vim-conque'
-
             Plugin 'chrisbra/csv.vim'
-
             Plugin 'tpope/vim-surround'
 
             "Allow ANSI color code in Vim (through conceal features)
@@ -97,6 +78,12 @@
             "Powerfull Vim SHELL (in pure Vim Script)
             Plugin 'Shougo/vimshell.vim'
             Plugin 'Shougo/vimproc.vim'
+
+            "Powerfull vim search capabilities (basically replacing
+            "bufexplorer, nerdtree, ctrlp...
+            "file_mru needs neomru
+            Plugin 'Shougo/neomru.vim'
+            Plugin 'Shougo/unite.vim'
 
             "Yankring
             Plugin 'vim-scripts/YankRing.vim'
@@ -162,6 +149,9 @@
 
             "TernJS better completion for javascript
             Plugin 'marijnh/tern_for_vim'
+
+            "JSX correct indentation and highlighting
+            Plugin 'mxw/vim-jsx' 
         endif
 
         "LaTeX
@@ -169,6 +159,11 @@
             "Plugin 'git://git.code.sf.net/p/atp-vim/code'
             "Plugin 'LaTeX-Box-Team/LaTeX-Box'
             "Plugin 'vim-scripts/TeX-9'
+        endif
+
+        "Spelling
+        if count(g:cocophotos_bundle_groups, 'spelling')
+            Plugin 'vim-scripts/LanguageTool'
         endif
 
     call vundle#end()
@@ -418,12 +413,6 @@
         let g:ycm_global_ycm_extra_conf = '~/.vim/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
     " }
 
-    " YCM Tex {
-    let g:ycm_semantic_triggers = {
-            \  'tex'  : ['\ref{','\cite{'],
-    \ }
-    " }
-    
     " Gundo Options {
         map <silent> <leader>g :GundoToggle<CR>
     " }
@@ -458,8 +447,52 @@
     " Custom settings {
         map <Leader>jt !python -m json.tool<CR>
     " }
-" }
+    
+    " LanguageTool {
+        let g:languagetool_jar='$HOME/.vim/LanguageTool/languagetool-commandline.jar'
+    " }
+    
+    " Unite {
+    
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    call unite#filters#sorter_default#use(['sorter_rank'])
+    call unite#custom#profile('default', 'context', {'start_insert': 1})
+    
+    let g:unite_data_directory='~/.unite'
+    let g:unite_source_history_yank_enable=1
+    let g:unite_source_rec_max_cache_files=5000
+    
+    if executable('ag')
+        let g:unite_source_grep_command='ag'
+        let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup -S -C4'
+        let g:unite_source_grep_recursive_opt=''
+    elseif executable('ack')
+        let g:unite_source_grep_command='ack'
+        let g:unite_source_grep_default_opts='--no-heading --no-color -C4'
+        let g:unite_source_grep_recursive_opt=''
+    endif
 
+    nnoremap <leader>t :<C-u>Unite -buffer-name=files   -vertical -start-insert file_rec/async:!<cr>
+    nnoremap <leader>f :<C-u>Unite -buffer-name=files   -vertical -start-insert file<cr>
+    nnoremap <leader>r :<C-u>Unite -buffer-name=mru     -vertical -start-insert file_mru<cr>
+    nnoremap <leader>o :<C-u>Unite -buffer-name=outline -vertical -start-insert outline<cr>
+    nnoremap <leader>y :<C-u>Unite -buffer-name=yank    -vertical -start-insert history/yank<cr>
+    nnoremap <leader>e :<C-u>Unite -buffer-name=buffer  -vertical -start-insert buffer<cr>
+    nnoremap <leader>/ :<C-u>Unite -no-quit -buffer-name=search -vertical -start-insert grep:.<cr>
+    nnoremap <leader>l :<C-u>Unite -buffer-name=line -vertical -start-insert line<cr>
+
+    autocmd FileType unite call s:unite_settings()
+
+    function! s:unite_settings()
+        let b:SuperTabDisabled=1
+        imap <silent><buffer><expr> <C-x> unite#do_action('split')
+        imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+        imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+        nmap <buffer> <ESC> <Plug>(unite_exit)
+    endfunction
+    " }
+" }
+    
 " FileType {
     " Pour les fichiers .QML"
     augroup qml
@@ -488,6 +521,12 @@
     " For XML folding
     let g:xml_syntax_folding=1
     au FileType xml setlocal foldmethod=syntax
+
+    " Activate spelling for LaTeX files
+    autocmd BufEnter *.tex setlocal spell
+
+    " Activate 79 characters wrap for tex file
+    autocmd BufRead,BufNewFile *.tex setlocal textwidth=79
 
     "Turn filetype detection on
     filetype plugin indent on
