@@ -45,16 +45,22 @@ cd $HOME/.vim/bundle/YouCompleteMe
 Then you can compile it with
 
 ```bash
-./install.sh
+./install.py
 ```
 
 If you want the C++ semantic completer support, use:
 
 ```bash
-./install.sh --clang-completer
+./install.py --clang-completer
 ```
 
 Please refer to the YouCompleteMe documentation for more information (https://github.com/Valloric/YouCompleteMe)
+
+## YouCompleteMe LaTeX Completer
+
+I've designed a Semantic LaTeX Completer for YCM that can automatically complete
+\ref and \cite labels. Please refer to this [repository](https://github.com/Cocophotos/vim-ycm-latex-semantic-completer)
+to use and install it.
 
 # Bundles description
 
