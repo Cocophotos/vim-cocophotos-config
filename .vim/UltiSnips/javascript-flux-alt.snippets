@@ -1,0 +1,24 @@
+priority -50
+
+snippet alt-store "Create Alt (Flux) store"
+import ${1:actions} from ${2:actions_location};
+class ${3:store_name} {
+	constructor() {
+		this.bindActions($1);
+	}
+}
+
+export default alt.createStore($3);
+endsnippet
+
+snippet alt-actions "Create Alt (Flux) actions"
+class ${1:action_name} {
+    constructor() {
+        this.generateActions(
+			${VISUAL}$0
+        );
+    }
+}
+
+export default alt.createActions($1);
+endsnippet

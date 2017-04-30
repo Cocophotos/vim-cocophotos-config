@@ -2,6 +2,8 @@
 
 # Installation
 
+****As of May 1st 2017, this configuration requires Vim 8 to work properly*
+
 Just move the directory and the .vimrc into your $HOME
 
 ```bash
@@ -65,7 +67,13 @@ to use and install it.
 # Bundles description
 
 - YankRing: https://github.com/vim-scripts/YankRing.vim (allow a circular buffer)
+- ale: Asynchronous Lint Engine (auto linting when coding)
+- vim-autoformat: Using linters to autoformat code when saving files
+- Denite.nvim: allow to browse files, buffers and other types of sources.
 
 # Cheat Sheet 
 
 - YankRing: default keys : \<C-P\> after paste for previous yanked text, \<C-N\> after paste for next yanked text
+- Denite.nvim: 
+    * <leader>e to open buffers
+    * <leader>f to open files recursively

@@ -19,9 +19,6 @@
 "  ---------
 "  run :CMake it should work
 "
-"  Unite
-"  --------
-"  leader+un
 
 
 
@@ -82,11 +79,7 @@
             "Powerfull vim search capabilities (basically replacing
             "bufexplorer, nerdtree, ctrlp...
             "file_mru needs neomru
-            Plugin 'Shougo/neomru.vim'
-            Plugin 'Shougo/unite.vim'
-
-            "unite outline to get a overview of everything in special files
-            Plugin 'Shougo/unite-outline'
+            Plugin 'Shougo/denite.nvim'
 
             "Yankring
             Plugin 'vim-scripts/YankRing.vim'
@@ -106,6 +99,9 @@
             Plugin 'nelstrom/vim-textobj-rubyblock'
             Plugin 'thinca/vim-textobj-function-javascript'
             Plugin 'vim-scripts/argtextobj.vim'
+            
+            "Expanding selection by pressing + (or _ to shrink)
+            Plugin 'terryma/vim-expand-region'
         endif
 
         " General Programming
@@ -114,6 +110,12 @@
             if executable('ctags')
                 Plugin 'majutsushi/tagbar'
             endif
+
+            "Autoformat with linter
+            Plugin 'Cocophotos/vim-autoformat'
+
+            "Lint engine
+            Plugin 'w0rp/ale'
             
             "Plugin 'Shougo/neocomplcache'
             Plugin 'Valloric/YouCompleteMe'
@@ -139,8 +141,14 @@
             "Indentation guide useful in Python for example
             Plugin 'Yggdroot/indentLine'
             
-            "Expanding selection by pressing + (or _ to shrink)
-            Plugin 'terryma/vim-expand-region'
+            "Nand2Tetris
+            Plugin 'sevko/vim-nand2tetris-syntax'
+
+            "For API BluePrint 1A format hightlighting
+            Plugin 'kylef/apiblueprint.vim'
+
+            "Dash.app
+            Plugin 'rizzatti/dash.vim'
         endif
 
         "Web programming
@@ -150,11 +158,14 @@
             Plugin 'pangloss/vim-javascript'
             Plugin 'elzr/vim-json'
 
-            "TernJS better completion for javascript
-            Plugin 'marijnh/tern_for_vim'
-
             "JSX correct indentation and highlighting
-            Plugin 'mxw/vim-jsx' 
+            Plugin 'mxw/vim-jsx'
+
+            "Riot tag
+            Plugin 'nicklasos/vim-jsx-riot'
+
+            "Julia language support
+            Plugin 'JuliaLang/julia-vim'
         endif
 
         "LaTeX
@@ -166,7 +177,7 @@
 
         "Spelling
         if count(g:cocophotos_bundle_groups, 'spelling')
-            Plugin 'vim-scripts/LanguageTool'
+            "Plugin 'vim-scripts/LanguageTool'
         endif
 
     call vundle#end()
@@ -184,6 +195,7 @@
     " Color scheme
     
     set background=dark
+    "set background=light
     colorscheme solarized
 
     if !has('gui_running')
@@ -229,7 +241,7 @@
         " bufhidden=unload (save memory when other file is viewed)
         " undolevels=-1 (no undo possible)
 
-        let g:LargeFile = 1024 * 1024 * 5
+        let g:LargeFile = 1024 * 1024 * 1.5
         augroup LargeFile
             autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
         augroup END
@@ -267,6 +279,7 @@
     " Remove trailing whitespaces and ^M chars
     autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+    autocmd FileType java setl autoindent noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 " }
 
 " Key Mappings {
@@ -306,19 +319,10 @@
 " }
 
 " Plugins {
-    " NerdTree {
-        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-        map <leader>e :NERDTreeFind<CR>
-        nmap <leader>nt :NERDTreeFind<CR>
-
-        let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store']
-        let NERDTreeChDirMode=0
-        let NERDTreeQuitOnOpen=1
-        let NERDTreeShowHidden=1
-        let NERDTreeKeepTreeInNewTab=1
+    " Vundle {
+        let g:vundle_default_git_proto = 'git' " use ssh instead of https
     " }
-
+    
     " TagBar {
         let g:tagbar_autofocus = 1
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
@@ -381,7 +385,6 @@
         set tags+=./tags;tags
     " }
 
-        
     " Ultisnips playing nice with YCM {
         " make YCM compatible with UltiSnips (using supertab)
         let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -401,14 +404,45 @@
             \ 'qf' : 1,
             \ 'notes' : 1,
             \ 'markdown' : 1,
-            \ 'unite' : 1,
             \ 'text' : 1,
             \ 'vimwiki' : 1,
             \ 'pandoc' : 1,
             \ 'infolog' : 1,
             \ 'mail' : 1,
             \ }
-    "} 
+
+        let g:ycm_semantic_triggers = {'tex'  : ['citep{', 'pageref{', 'ref{', 'citet{', 'citeauthor{']}
+        "let g:EclimCompletionMethod = 'omnifunc'
+    "}
+    
+    "Denite.vim {
+        nnoremap <leader>e :Denite -default-action=vsplitswitch -buffer-name=denite-buffer buffer<cr>
+        nnoremap <leader>f :Denite -default-action=vsplitswitch -buffer-name=denite-file-rec file_rec<cr>
+
+        call denite#custom#map(
+                    \ 'insert',
+                    \ '<Down>',
+                    \ '<denite:move_to_next_line>',
+                    \ 'noremap'
+                    \)
+        call denite#custom#map(
+                    \ 'insert',
+                    \ '<Up>',
+                    \ '<denite:move_to_previous_line>',
+                    \ 'noremap'
+                    \)
+
+    " }
+    
+    " vim-autoformat {
+        "Autoformat when saving
+        au BufWrite * :Autoformat
+
+        "Avoid falling back to default vim formatting
+        let g:autoformat_autoindent = 0
+        let g:autoformat_retab = 0
+        let g:autoformat_remove_trailing_spaces = 0
+    "}
 
     " YCM C++ {
         " launch echo | clang -std=c++11 -stdlib=libc++ -v -E -x c++ -
@@ -443,6 +477,7 @@
 
     " YankRing {
         let g:yankring_history_file = '.yankring_history'
+        let g:yankring_max_element_length = 0
         nnoremap ,yr :YRShow<CR>
         nnoremap C-y :YRShow<CR>
     " }
@@ -451,50 +486,6 @@
         map <Leader>jt !python -m json.tool<CR>
     " }
     
-    " LanguageTool {
-        let g:languagetool_jar='$HOME/.vim/LanguageTool/languagetool-commandline.jar'
-    " }
-    
-    " Unite {
-    
-    call unite#filters#matcher_default#use(['matcher_fuzzy'])
-    call unite#filters#sorter_default#use(['sorter_rank'])
-    call unite#custom#profile('default', 'context', {'start_insert': 1})
-    
-    let g:unite_data_directory='~/.unite'
-    let g:unite_source_history_yank_enable=1
-    let g:unite_source_rec_max_cache_files=5000
-    
-    if executable('ag')
-        let g:unite_source_grep_command='ag'
-        let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup -S -C4'
-        let g:unite_source_grep_recursive_opt=''
-    elseif executable('ack')
-        let g:unite_source_grep_command='ack'
-        let g:unite_source_grep_default_opts='--no-heading --no-color -C4'
-        let g:unite_source_grep_recursive_opt=''
-    endif
-
-    nnoremap <leader>t :<C-u>Unite -buffer-name=files   -vertical -start-insert file_rec/async:!<cr>
-    nnoremap <leader>f :<C-u>Unite -buffer-name=files   -vertical -start-insert file<cr>
-    nnoremap <leader>r :<C-u>Unite -buffer-name=mru     -vertical -start-insert file_mru<cr>
-    nnoremap <leader>o :<C-u>Unite -buffer-name=outline -vertical -start-insert outline<cr>
-    nnoremap <leader>y :<C-u>Unite -buffer-name=yank    -vertical -start-insert history/yank<cr>
-    nnoremap <leader>e :<C-u>Unite -buffer-name=buffer  -vertical -start-insert buffer<cr>
-    nnoremap <leader>/ :<C-u>Unite -no-quit -buffer-name=search -vertical -start-insert grep:.<cr>
-    nnoremap <leader>l :<C-u>Unite -buffer-name=line -vertical -start-insert line<cr>
-    nnoremap <leader>o :<C-u>Unite -buffer-name=outline -vertical -start-insert outline<cr>
-
-    autocmd FileType unite call s:unite_settings()
-
-    function! s:unite_settings()
-        let b:SuperTabDisabled=1
-        imap <silent><buffer><expr> <C-x> unite#do_action('split')
-        imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-        imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-        nmap <buffer> <ESC> <Plug>(unite_exit)
-    endfunction
-    " }
 " }
     
 " FileType {
@@ -531,6 +522,9 @@
 
     " Activate 79 characters wrap for tex file
     autocmd BufRead,BufNewFile *.tex setlocal textwidth=79
+
+    " Activate RIOT syntax
+    au BufNewFile,BufRead *.tag setlocal ft=html
 
     "Turn filetype detection on
     filetype plugin indent on
