@@ -2,7 +2,7 @@
 
 # Installation
 
-****As of May 1st 2017, this configuration requires Vim 8 to work properly*
+As of May the 1st of 2017, this config requires vim 8+ to work properly.
 
 Just move the directory and the .vimrc into your $HOME
 
@@ -75,5 +75,5 @@ to use and install it.
 
 - YankRing: default keys : \<C-P\> after paste for previous yanked text, \<C-N\> after paste for next yanked text
 - Denite.nvim: 
-    * <leader>e to open buffers
-    * <leader>f to open files recursively
+    * \<leader\>e to open buffers
+    * \<leader\>f to open files recursively
