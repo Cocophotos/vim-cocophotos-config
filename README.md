@@ -56,13 +56,28 @@ If you want the C++ semantic completer support, use:
 ./install.py --clang-completer
 ```
 
+If you want the Javascript semantic completer support, use:
+```bash
+./install.py --tern-completer
+```
+
 Please refer to the YouCompleteMe documentation for more information (https://github.com/Valloric/YouCompleteMe)
+
 
 ## YouCompleteMe LaTeX Completer
 
 I've designed a Semantic LaTeX Completer for YCM that can automatically complete
 \ref and \cite labels. Please refer to this [repository](https://github.com/Cocophotos/vim-ycm-latex-semantic-completer)
 to use and install it.
+
+## TagBar
+
+- \<leader\>tt will trigger the TagBar plugin allowing you to see the structure of files (classes, methods, variables, etc.)
+- You need to install *exuberant ctags* for the plugin to work.
+- For Javascript ES6 & ES7, you need to install *jsctags*:
+```bash
+sudo npm install -g git+https://github.com/ramitos/jsctags.git
+```
 
 # Bundles description
 
