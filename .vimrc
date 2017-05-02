@@ -73,8 +73,8 @@
             Plugin 'dag/vim-fish'
 
             "Powerfull Vim SHELL (in pure Vim Script)
-            Plugin 'Shougo/vimshell.vim'
-            Plugin 'Shougo/vimproc.vim'
+            "Plugin 'Shougo/vimshell.vim'
+            "Plugin 'Shougo/vimproc.vim'
 
             "Powerfull vim search capabilities (basically replacing
             "bufexplorer, nerdtree, ctrlp...
@@ -83,6 +83,10 @@
 
             "Yankring
             Plugin 'vim-scripts/YankRing.vim'
+
+            "Autoclose parens, brackets, quotes
+            Plugin 'Raimondi/delimitMate'
+
         endif
 
         "Text objects
@@ -99,6 +103,7 @@
             Plugin 'nelstrom/vim-textobj-rubyblock'
             Plugin 'thinca/vim-textobj-function-javascript'
             Plugin 'vim-scripts/argtextobj.vim'
+            Plugin 'bps/vim-textobj-python'
             
             "Expanding selection by pressing + (or _ to shrink)
             Plugin 'terryma/vim-expand-region'
@@ -120,8 +125,9 @@
             "Plugin 'Shougo/neocomplcache'
             Plugin 'Valloric/YouCompleteMe'
             
-            Plugin 'vim-perl/vim-perl'
-            Plugin 'rainux/vim-vala'
+            "Plugin 'vim-perl/vim-perl'
+            "Plugin 'rainux/vim-vala'
+            "
             "View undo tree in Vim
             Plugin 'sjl/gundo.vim'
             "View color parentheses when they are mingled
@@ -149,6 +155,9 @@
 
             "Dash.app
             Plugin 'rizzatti/dash.vim'
+
+            "Follow indentation from PEP8
+            Plugin 'Vimjas/vim-python-pep8-indent'
         endif
 
         "Web programming
@@ -177,7 +186,7 @@
 
         "Spelling
         if count(g:cocophotos_bundle_groups, 'spelling')
-            "Plugin 'vim-scripts/LanguageTool'
+            Plugin 'vim-scripts/LanguageTool'
         endif
 
     call vundle#end()
@@ -189,7 +198,7 @@
 
 " Vim UI {
     " Font
-    set anti enc=utf-8
+    "set anti enc=utf-8
     set gfn=Source\ Code\ Pro\ Regular:h13
     "set gfn=Liberation\ Mono\ Regular:h13
     " Color scheme
@@ -410,9 +419,8 @@
             \ 'infolog' : 1,
             \ 'mail' : 1,
             \ }
-
         let g:ycm_semantic_triggers = {'tex'  : ['citep{', 'pageref{', 'ref{', 'citet{', 'citeauthor{']}
-        "let g:EclimCompletionMethod = 'omnifunc'
+        let g:EclimCompletionMethod = 'omnifunc'
     "}
     
     "Denite.vim {
@@ -486,6 +494,17 @@
         map <Leader>jt !python -m json.tool<CR>
     " }
     
+    " LanguageTool {
+        let g:languagetool_jar='$HOME/.vim/LanguageTool/languagetool-commandline.jar'
+    " }
+    
+    " ALE {
+        " Lint only when saving file
+        let g:ale_lint_on_text_changed = 'never'
+        " You can disable this option too
+        " if you don't want linters to run on opening a file
+        let g:ale_lint_on_enter = 0
+    "}
 " }
     
 " FileType {
