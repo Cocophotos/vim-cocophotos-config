@@ -31,7 +31,7 @@ This being done, you can install all the plugins (bundles).
 To install the new bundle, open a terminal and type:
 
 ```bash
-vim +BundleInstall
+vim +PluginInstall
 ```
 
 When complete, just type *:q* in Normal Mode to exit Vim.
@@ -79,12 +79,17 @@ to use and install it.
 sudo npm install -g git+https://github.com/ramitos/jsctags.git
 ```
 
+## Vim-Scala & Ensime-server
+
+For Scala, you need to follow the steps for the [ensime-server](http://ensime.github.io/editors/vim/install).
+
 # Bundles description
 
 - YankRing: https://github.com/vim-scripts/YankRing.vim (allow a circular buffer)
 - ale: Asynchronous Lint Engine (auto linting when coding)
 - vim-autoformat: Using linters to autoformat code when saving files
 - Denite.nvim: allow to browse files, buffers and other types of sources.
+- Many others...
 
 # Cheat Sheet 
 

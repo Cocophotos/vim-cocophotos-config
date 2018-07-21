@@ -158,6 +158,13 @@
 
             "Follow indentation from PEP8
             Plugin 'Vimjas/vim-python-pep8-indent'
+
+            "Java complete
+            Plugin 'artur-shaik/vim-javacomplete2'
+
+            "Scala IDE
+            Plugin 'ensime/ensime-vim'
+            Plugin 'derekwyatt/vim-scala'
         endif
 
         "Web programming
@@ -168,13 +175,16 @@
             Plugin 'elzr/vim-json'
 
             "JSX correct indentation and highlighting
-            Plugin 'mxw/vim-jsx'
+            Plugin 'maxmellon/vim-jsx-pretty'
 
-            "Riot tag
-            Plugin 'nicklasos/vim-jsx-riot'
+            "Vue JS hightlighting"
+            Plugin 'posva/vim-vue'
 
             "Julia language support
             Plugin 'JuliaLang/julia-vim'
+
+            "HTML5
+            Plugin 'othree/html5.vim'
         endif
 
         "LaTeX
@@ -203,8 +213,8 @@
     "set gfn=Liberation\ Mono\ Regular:h13
     " Color scheme
     
-    set background=dark
-    "set background=light
+    "set background=dark
+    set background=light
     colorscheme solarized
 
     if !has('gui_running')
@@ -419,9 +429,11 @@
             \ 'infolog' : 1,
             \ 'mail' : 1,
             \ }
-        let g:ycm_semantic_triggers = {'tex'  : ['citep{', 'pageref{', 'ref{', 'citet{', 'citeauthor{']}
-        let g:EclimCompletionMethod = 'omnifunc'
-    "}
+        let g:ycm_semantic_triggers = {
+            \ 'tex'  : ['{'],
+            \ 'java': ['.']
+        \ }
+    " }
     
     "Denite.vim {
         nnoremap <leader>e :Denite -default-action=vsplitswitch -buffer-name=denite-buffer buffer<cr>
@@ -443,13 +455,13 @@
     " }
     
     " vim-autoformat {
-        "Autoformat when saving
-        au BufWrite * :Autoformat
-
         "Avoid falling back to default vim formatting
         let g:autoformat_autoindent = 0
         let g:autoformat_retab = 0
         let g:autoformat_remove_trailing_spaces = 0
+        "Autoformat when saving
+        au BufWrite * :Autoformat
+
     "}
 
     " YCM C++ {
@@ -462,11 +474,6 @@
         map <silent> <leader>g :GundoToggle<CR>
     " }
     
-    " SuperTab Options {
-    "    let g:SuperTabLongestEnhanced=1
-    "    let g:SuperTabLongestHighlight=1
-    " }
-
     " vim-json options {
         let g:vim_json_syntax_conceal = 0
     " }
@@ -491,7 +498,7 @@
     " }
     
     " Custom settings {
-        map <Leader>jt !python -m json.tool<CR>
+        map <Leader>jt !jq .<CR>
     " }
     
     " LanguageTool {
@@ -504,7 +511,11 @@
         " You can disable this option too
         " if you don't want linters to run on opening a file
         let g:ale_lint_on_enter = 0
-    "}
+    " }
+    
+    " Javacomplete2 {
+        autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    " }
 " }
     
 " FileType {
