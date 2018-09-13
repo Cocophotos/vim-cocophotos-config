@@ -60,6 +60,9 @@ If you want the Javascript semantic completer support, use:
 ```bash
 ./install.py --tern-completer
 ```
+Please note, that this has been deprecated in profit of the TSServer from the TypeScript project
+You need to use typescript for a fully-featured Javascript & TypeScript completion.
+Typescript should be installed globally using `npm`
 
 Please refer to the YouCompleteMe documentation for more information (https://github.com/Valloric/YouCompleteMe)
 
