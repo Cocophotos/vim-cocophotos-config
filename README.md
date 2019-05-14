@@ -1,25 +1,36 @@
 # Description
 
+Vim config used for programming notably in:
+
+- TypeScript
+- CSS
+- HTML
+- VueJS
+- Python
+- Scala (soon)
+- C/C++ (soon)
+
 # Installation
 
-As of May the 1st of 2017, this config requires vim 8+ to work properly.
+You need a fairly recent version of [NeoVim](https://github.com/neovim/neovim/wiki/Installing-Neovim) (0.3.x) to work. It is possible to make it work on Vim 8+ but it is not supported as is.
 
-Just move the directory and the .vimrc into your $HOME
+
+Just move the .vimrc into your $HOME and create the .vim directory
 
 ```bash
-#Move the .vim directory
-# WARNING : this may erase an old .vim directory
-mv .vim $HOME/.vim
+#Create the .vim directory
+mkdir $HOME/.vim
 
 #Move the config file .vimrc
 # WARNING : this may erase an old .vimrc 
 mv .vimrc $HOME/.vimrc
 ```
 
-Then, you need to install Vundle.vim (https://github.com/gmarik/Vundle.vim):
+Then, you need to install [VimPlug](https://github.com/junegunn/vim-plug):
 
 ```bash
-git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 This being done, you can install all the plugins (bundles).
@@ -31,72 +42,98 @@ This being done, you can install all the plugins (bundles).
 To install the new bundle, open a terminal and type:
 
 ```bash
-vim +PluginInstall
+vim +PlugInstall
 ```
 
 When complete, just type *:q* in Normal Mode to exit Vim.
 
-## YouCompleteMe install
+## CocConfig and CocInstall
 
-You need to compile YouCompleteMe yourself. To do so, go to the YouComplete subdirectory
+### Prerequisites
 
-```bash
-cd $HOME/.vim/bundle/YouCompleteMe
-```
+You should read the documentation of [coc.nvim](https://github.com/neoclide/coc.nvim), but you need at least the latest LTS of Node.js (8.11.x) to make it work.
 
-Then you can compile it with
+### Install language servers
 
-```bash
-./install.py
-```
-
-If you want the C++ semantic completer support, use:
+Then, you need to install the Language Servers for coc.nvim. Start vim and run the 
+command:
 
 ```bash
-./install.py --clang-completer
+:CocInstall coc-json coc-css coc-html coc-tsserver coc-tslint-plugin coc-ultisnips coc-python coc-vetur
 ```
 
-If you want the Javascript semantic completer support, use:
+This will install the language servers for:
+
+- JSON
+- CSS
+- HTML
+- TypeScript (+ the linting plugin)
+- Ultisnips (for snippets)
+- Python
+- VueJS (with vetur)
+
+You can choose which language servers you want to install, but we always recommend:
+
+- JSON
+- Ultisnips
+
+### Install custom language servers
+
+Some language servers need to be installed separately:
+
+- [digestif](https://github.com/astoff/digestif) for LaTeX
+- [flow](https://github.com/facebook/flow) for Flow typing in JavaScript
+
+Our coc-config provides the right configuration for those languager servers. 
+
+### Copy/Paste coc-config
+
+Open vim and execute the command:
+
 ```bash
-./install.py --tern-completer
-```
-Please note, that this has been deprecated in profit of the TSServer from the TypeScript project
-You need to use typescript for a fully-featured Javascript & TypeScript completion.
-Typescript should be installed globally using `npm`
-
-Please refer to the YouCompleteMe documentation for more information (https://github.com/Valloric/YouCompleteMe)
-
-
-## YouCompleteMe LaTeX Completer
-
-I've designed a Semantic LaTeX Completer for YCM that can automatically complete
-\ref and \cite labels. Please refer to this [repository](https://github.com/Cocophotos/vim-ycm-latex-semantic-completer)
-to use and install it.
-
-## TagBar
-
-- \<leader\>tt will trigger the TagBar plugin allowing you to see the structure of files (classes, methods, variables, etc.)
-- You need to install *exuberant ctags* for the plugin to work.
-- For Javascript ES6 & ES7, you need to install *jsctags*:
-```bash
-sudo npm install -g git+https://github.com/ramitos/jsctags.git
+:CocConfig
 ```
 
-## Vim-Scala & Ensime-server
-
-For Scala, you need to follow the steps for the [ensime-server](http://ensime.github.io/editors/vim/install).
+Then copy/paste the coc-settings.json content from this repository
 
 # Bundles description
 
-- YankRing: https://github.com/vim-scripts/YankRing.vim (allow a circular buffer)
-- ale: Asynchronous Lint Engine (auto linting when coding)
-- vim-autoformat: Using linters to autoformat code when saving files
-- Denite.nvim: allow to browse files, buffers and other types of sources.
-- Many others...
+## Theming
 
-# Cheat Sheet 
+We use Gruvbox as the default theme. It is free, has good constrast, we love it.
 
-- YankRing: default keys : \<C-P\> after paste for previous yanked text, \<C-N\> after paste for next yanked text
-- Denite.nvim: 
-    * \<leader\>e to open buffers
-    * \<leader\>f to open files recursively
+## General purpose bundles
+
+- [NerdTree](https://github.com/scrooloose/nerdTree): Tree file explorer. Use Ctrl+n to open the explorer
+- [YankRing](https://github.com/vim-scripts/YankRing.vim): Circular buffer for copy/pasting
+- [vim-surround](https://github.com/tpope/vim-surround): Allow to change surrounding around text (parentheses, brackets, ...)
+- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): Ctrlp is the most efficient and easy way to open buffers & files on Vim. With the stroke of <C-p> binding you can easily search through all the different files available in the PWD and the best part is that you don’t even have to be precise while typing the name of the file or buffer.
+- [vim-easymotion](https://github.com/easymotion/vim-easymotion): Easy motion makes the process of moving around the lines in a document or piece of code much simpler by adding shortcuts to access different parts of the visible lines.
+- [vim-airline](https://github.com/bling/vim-airline): The famous status tabline for Vim
+- [delimitMate](https://github.com/Raimondi/delimitMate): provides automatic closing of quotes, parenthesis, brackets, etc.
+- [gundo](https://github.com/sjl/gundo.vim): Gundo.vim is the Vim plugin to visualize your Vim undo tree.
+- [rainbow_parentheses](https://github.com/kien/rainbow_parentheses.vim): Coloring parentheses (brackets, ...) when they are mingled
+- [tabular](https://github.com/godlygeek/tabular): Allow fast tabularization of input
+
+## Text object bundles
+
+We have several text object plugins to help text blocks selection and formatting. Also, we have those plugins:
+
+- [vim-expande-region](https://github.com/terryma/vim-expand-region): Expanding selection by pressing `+` (or `_` to shrink).
+
+## Development
+
+Apart from coc.nvim, we have support for:
+
+- C++11 (syntax highlighting)
+- Shell Fish (syntax)
+- VueJs (syntax hightlighting)
+- CMake support
+- PEP8 indentation for Python
+- TypeScript/JavaScript (syntax hightlighting)
+
+# Cheat sheet
+
+- <Leader> is `,`
+- Tab in command mode switch between Windows
+- <C-n> to open NerdTree 

@@ -1,239 +1,98 @@
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
-" To update : 
-" vim +PluginInstall! +PluginClean +q
-
-" Shortcut sheet
-" --------------
-" leader : ,
-" localleader : -
-"
-" Tagbar
-" --------
-"  leader+tt : Toggle tagbar
-" 
-" Gundo
-" --------
-"  leader+g : Toggle Gundo plugin
-"
-"  Vim-CMake
-"  ---------
-"  run :CMake it should work
-"
+" vim: set foldmarker={{,}} foldlevel=0 foldmethod=marker spell:
 
 
-
-"Environment {
-
-    "Basics {
+"Environment {{
+    "Basics {{
         set nocompatible
         "Ensure a POSIX-compliant SHELL so that Vundle will run properly
         if $SHELL =~ 'bin/fish'
             set shell=/bin/bash
         endif
-    "}
-    
-    
-    "Plugin {
-    "Ensure that vundle works
-        filetype off
-        set rtp+=~/.vim/bundle/Vundle.vim
-        call vundle#begin()
-    "}
+    "}}
+"}}
 
-"}
-
-" Plugins {
-    " Deps
-        Plugin 'gmarik/Vundle.vim'
-
-        if executable('ack')
-            Plugin 'mileszs/ack.vim'
-        endif
-
-        if !exists('g:cocophotos_bundle_groups')
-            let g:cocophotos_bundle_groups=['general', 'textobj', 'programming', 'web', 'latex', 'spelling']
-        endif
-
-        " General
-        if count(g:cocophotos_bundle_groups, 'general')
-            Plugin 'matchit.zip'
-            Plugin 'Lokaltog/vim-powerline'
-            Plugin 'Lokaltog/vim-easymotion'
-            Plugin 'altercation/vim-colors-solarized'
-            
-            Plugin 'sirver/ultisnips'
-            Plugin 'honza/vim-snippets'
-            Plugin 'chrisbra/csv.vim'
-            Plugin 'tpope/vim-surround'
-
-            "Allow ANSI color code in Vim (through conceal features)
-            Plugin 'powerman/vim-plugin-AnsiEsc'
-
-            "Allow fish shell syntax
-            Plugin 'dag/vim-fish'
-
-            "Powerfull Vim SHELL (in pure Vim Script)
-            "Plugin 'Shougo/vimshell.vim'
-            "Plugin 'Shougo/vimproc.vim'
-
-            "Powerfull vim search capabilities (basically replacing
-            "bufexplorer, nerdtree, ctrlp...
-            "file_mru needs neomru
-            Plugin 'Shougo/denite.nvim'
-
-            "Yankring
-            Plugin 'vim-scripts/YankRing.vim'
-
-            "Autoclose parens, brackets, quotes
-            Plugin 'Raimondi/delimitMate'
-
-        endif
-
-        "Text objects
-        if count(g:cocophotos_bundle_groups, 'textobj')
-            Plugin 'austintaylor/vim-indentobject'
-            Plugin 'bootleq/vim-textobj-rubysymbol'
-            Plugin 'coderifous/textobj-word-column.vim'
-            Plugin 'kana/vim-textobj-datetime'
-            Plugin 'kana/vim-textobj-entire'
-            Plugin 'kana/vim-textobj-function'
-            Plugin 'kana/vim-textobj-user'
-            Plugin 'lucapette/vim-textobj-underscore'
-            Plugin 'nathanaelkane/vim-indent-guides'
-            Plugin 'nelstrom/vim-textobj-rubyblock'
-            Plugin 'thinca/vim-textobj-function-javascript'
-            Plugin 'vim-scripts/argtextobj.vim'
-            Plugin 'bps/vim-textobj-python'
-            
-            "Expanding selection by pressing + (or _ to shrink)
-            Plugin 'terryma/vim-expand-region'
-        endif
-
-        " General Programming
-        if count(g:cocophotos_bundle_groups, 'programming')
-            Plugin 'tpope/vim-fugitive'
-            if executable('ctags')
-                Plugin 'majutsushi/tagbar'
-            endif
-
-            "Autoformat with linter
-            Plugin 'Cocophotos/vim-autoformat'
-
-            "Lint engine
-            Plugin 'w0rp/ale'
-            
-            "Plugin 'Shougo/neocomplcache'
-            Plugin 'Valloric/YouCompleteMe'
-            
-            "Plugin 'vim-perl/vim-perl'
-            "Plugin 'rainux/vim-vala'
-            "
-            "View undo tree in Vim
-            Plugin 'sjl/gundo.vim'
-            "View color parentheses when they are mingled
-            Plugin 'kien/rainbow_parentheses.vim'
-            
-            Plugin 'ervandew/supertab'
-
-            " Allow fast tabularization of input
-            Plugin 'godlygeek/tabular'
-            
-            "Vim C++11 support
-            Plugin 'vim-scripts/Cpp11-Syntax-Support'
-            
-            "Vim CMake support
-            Plugin 'vhdirk/vim-cmake'
-            
-            "Indentation guide useful in Python for example
-            Plugin 'Yggdroot/indentLine'
-            
-            "Nand2Tetris
-            Plugin 'sevko/vim-nand2tetris-syntax'
-
-            "For API BluePrint 1A format hightlighting
-            Plugin 'kylef/apiblueprint.vim'
-
-            "Dash.app
-            Plugin 'rizzatti/dash.vim'
-
-            "Follow indentation from PEP8
-            Plugin 'Vimjas/vim-python-pep8-indent'
-
-            "Java complete
-            Plugin 'artur-shaik/vim-javacomplete2'
-
-            "Scala IDE
-            Plugin 'ensime/ensime-vim'
-            Plugin 'derekwyatt/vim-scala'
-        endif
-
-        "Web programming
-        if count(g:cocophotos_bundle_groups, 'web')
-            Plugin 'digitaltoad/vim-jade'
-            Plugin 'groenewege/vim-less'
-            Plugin 'pangloss/vim-javascript'
-            Plugin 'elzr/vim-json'
-            Plugin 'leafgarland/typescript-vim'
-
-            "JSX correct indentation and highlighting
-            Plugin 'maxmellon/vim-jsx-pretty'
-
-            "Vue JS hightlighting"
-            Plugin 'posva/vim-vue'
-
-            "Julia language support
-            Plugin 'JuliaLang/julia-vim'
-
-            "HTML5
-            Plugin 'othree/html5.vim'
-        endif
-
-        "LaTeX
-        if count(g:cocophotos_bundle_groups, 'latex')
-            "Plugin 'git://git.code.sf.net/p/atp-vim/code'
-            "Plugin 'LaTeX-Box-Team/LaTeX-Box'
-            "Plugin 'vim-scripts/TeX-9'
-        endif
-
-        "Spelling
-        if count(g:cocophotos_bundle_groups, 'spelling')
-            Plugin 'vim-scripts/LanguageTool'
-        endif
-
-    call vundle#end()
-"}
-
-" General {
+" General {{
     set encoding=utf-8 " Necessary to show Unicode glyphs
-" }
+" }}
 
-" Vim UI {
-    " Font
-    "set anti enc=utf-8
-    set gfn=Source\ Code\ Pro\ Regular:h13
-    "set gfn=Liberation\ Mono\ Regular:h13
-    " Color scheme
+" Plugins {{
+    call plug#begin('~/.vim/plugged')
+
+    ""Theming
+    Plug 'morhetz/gruvbox'
+
+
+    ""General
+    Plug 'scrooloose/nerdTree'
+    Plug 'tpope/vim-surround'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'bling/vim-airline'
+    Plug 'vim-scripts/YankRing.vim'
+    "Autoclose parens, brackets, quotes
+    Plug 'Raimondi/delimitMate'
+    Plug 'sjl/gundo.vim'
+    "View color parentheses when they are mingled
+    Plug 'kien/rainbow_parentheses.vim'
+    " Allow fast tabularization of input
+    Plug 'godlygeek/tabular'
+    " Snippets manager and engine 
+    Plug 'SirVer/ultisnips'
+    " Real snippets that integrate with vim-snippets
+    Plug 'honza/vim-snippets'
+    " For git integration (notably easy integration with vim-airline)
+    Plug 'tpope/vim-fugitive'
     
+    
+    ""Text objects
+    Plug 'austintaylor/vim-indentobject'
+    Plug 'bootleq/vim-textobj-rubysymbol'
+    Plug 'coderifous/textobj-word-column.vim'
+    Plug 'kana/vim-textobj-datetime'
+    Plug 'kana/vim-textobj-entire'
+    Plug 'kana/vim-textobj-function'
+    Plug 'kana/vim-textobj-user'
+    Plug 'lucapette/vim-textobj-underscore'
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'nelstrom/vim-textobj-rubyblock'
+    Plug 'thinca/vim-textobj-function-javascript'
+    Plug 'vim-scripts/argtextobj.vim'
+    Plug 'bps/vim-textobj-python'
+    "Expanding selection by pressing + (or _ to shrink)
+    Plug 'terryma/vim-expand-region'
+
+
+    ""Development
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+    "Allow fish shell syntax
+    Plug 'dag/vim-fish'
+    "Vue JS hightlighting"
+    Plug 'posva/vim-vue'
+    "Vim C++11 support
+    Plug 'vim-scripts/Cpp11-Syntax-Support'
+    "Vim CMake support
+    Plug 'vhdirk/vim-cmake'
+    "Follow indentation from PEP8
+    Plug 'Vimjas/vim-python-pep8-indent'
+    "Syntax hightlighting for TypeScript 
+    Plug 'leafgarland/typescript-vim'
+
+    call plug#end()
+" }}
+
+" Vim UI {{
+    " Font
+    set gfn=Source\ Code\ Pro\ Regular:h13
+    
+    " Color scheme
     "set background=dark
-    set background=light
-    colorscheme solarized
+    "set background=light
+    colorscheme gruvbox 
 
     if !has('gui_running')
         let g:solarized_termcolors=256
     endif
     
-    if has('statusline')
-        set laststatus=2
-
-        " Broken down into easily includeable segments
-        set statusline=%<%f\    " Filename
-        set statusline+=%w%h%m%r " Options
-        set statusline+=%{fugitive#statusline()} "  Git Hotness
-        set statusline+=\ [%{&ff}/%Y]            " filetype
-        set statusline+=\ [%{getcwd()}]          " current dir
-        set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-    endif
-
     set nu                          " Line numbers on
     set showmatch                   " show matching brackets/parenthesis
     set incsearch                   " find as you type search
@@ -246,47 +105,10 @@
     set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
     set scrolljump=5                " lines to scroll when cursor leaves screen
     set scrolloff=3                 " minimum lines to keep above and below cursor
-    set foldenable                  " auto fold code
     syntax on                       " syntax highlighting always on
-    "In case of large file > 10Mb, disable most of the command to speed up
-    "editing:
-    " Protect large files from sourcing and other overhead.
-    if !exists("my_auto_commands_loaded")
-        let my_auto_commands_loaded = 1
-        " Large files are > 10M
-        " Set options:
-        " eventignore+=FileType (no syntax highlighting etc
-        " assumes FileType always on)
-        " noswapfile (save copy of file)
-        " bufhidden=unload (save memory when other file is viewed)
-        " undolevels=-1 (no undo possible)
+" }}
 
-        let g:LargeFile = 1024 * 1024 * 1.5
-        augroup LargeFile
-            autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
-        augroup END
-    endif
-    
-    "set conceal level and cursor for easier interaction
-    if has('conceal')
-        set conceallevel=2
-        set concealcursor=""
-        
-        let g:vim_json_syntax_concealcursor=""
-        let g:indentLine_noConcealCursor=""
-    endif
-
-    "set clipboard=unnamedplus "Always save copy into system clipboard
-    "vmap <C-c> "+yi
-    "vmap <C-x> "+c
-    "vmap <C-v> c<ESC>"+p
-    "imap <C-v> <ESC>"+pa
-" }
-
-" Formatting {
-    "set wrap                        "Auto wrapping
-    "set textwidth=79
-    "set formatoptions=qrn1
+" Formatting {{
     set colorcolumn=85              "Highlight when you go further than 85 chars
     set autoindent                  " indent at the same level of the previous line
     set shiftwidth=4                " use indents of 4 spaces
@@ -297,19 +119,16 @@
     set backspace=indent,eol,start  " use backspace like other apps"
 
     " Remove trailing whitespaces and ^M chars
-    autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType java setl autoindent noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
-" }
+    "autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+    "autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+    "autocmd FileType java setl autoindent noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+" }}
 
-" Key Mappings {
+" Key Mappings {{
     "The default leader is '\', but many people prefer ',' as it's in a standard location
     let mapleader = ','
     let maplocalleader = '-'
     
-    "Remap Esc to go out of Insert mode to jk
-    inoremap jk <Esc>
-
     set switchbuf=useopen
     map <C-tab> :sbnext<CR>
 
@@ -320,252 +139,33 @@
     "Remap <tab> in command mode to switch between window    
     map <Tab> <C-W>W
 
-    " Commenting blocks of code.
-    autocmd FileType c,cpp,java,scala,javascript let b:comment_leader = '// '
-    autocmd FileType sh,ruby,python      let b:comment_leader = '# '
-    autocmd FileType conf,fstab          let b:comment_leader = '# '
-    autocmd FileType tex                 let b:comment_leader = '% '
-    autocmd FileType mail                let b:comment_leader = '> '
-    autocmd FileType vim                 let b:comment_leader = '" '
-    noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-    noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
     " Some tips worth having
-    "{
     "Insert new line in NORMAL mode by pressing Enter
     nmap <CR> o<Esc>
-    "}
+" }}
 
-" }
-
-" Plugins {
-    " Vundle {
-        let g:vundle_default_git_proto = 'git' " use ssh instead of https
-    " }
-    
-    " TagBar {
-        let g:tagbar_autofocus = 1
-        nnoremap <silent> <leader>tt :TagbarToggle<CR>
-     "}
-
-    " NeoComplCache {
-        " Disable Autocompletion when moving cursor
-        "let g:neocomplcache_enable_cursor_hold_i = 1
-
-        " Shorten the completion list
-        "let g:neocomplcache_max_list = 30
-
-        " Start at startup
-        "let g:neocomplcache_enable_at_startup = 1        
-    " }
-
-    " Syntastic {
-        "Passive syntastic check for perl (because to slow)
-        "let g:syntastic_mode_map = { 'mode': 'active',
-        "                       \ 'active_filetypes': [],
-        "                       \ 'passive_filetypes': ['perl', 'tex'] }
-    " }
-    
-    " Automatic LaTeX Plugin {
-        " This script has been uninstalled
-        " Autocompletion with Tab and Shift+Tab
-        "let g:atp_tab_map=0
-
-        " Tex Options for using -shell-escape (and using numerous of plugin
-        " such as minted
-        "let b:atp_TexOptions = "-shell-escape,-synctex=1"
-
-        " Tex Flavor
-        "let b:atp_TexFlavor = "latex"
-
-        " Redefine the leader for text formatting such as italic, emph, bold,
-        " etc.
-        "let g:atp_imap_leader_2 = "ii"
-
-        " View via "open" map to vv
-        "imap vv <Esc>:View<CR>i
-        "map vv :View<CR> 
-
-        " Disable autosaving via CursorHold(I)
-        "let b:atp_updatetime_insert = 0 
-        "let b:atp_updatetime_normal = 0
-
-        " Use homemade script to compile LaTeX
-        nmap <F7> :! makepdf.sh %:p 2 1<CR>
-    " }
-
-    " Latex {
-        let g:tex_flavor = 'latex'
-        " Remove conceal 
-        let g:tex_conceal = ''
-    " }
-    
-    " Tags built-in plugin {
-        "set tags+=~/.vim/tags/stl
-        set tags+=./tags;tags
-    " }
-
-    " Ultisnips playing nice with YCM {
-        " make YCM compatible with UltiSnips (using supertab)
-        let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-        let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-        let g:SuperTabDefaultCompletionType = '<C-n>'
-        
-        " better key bindings for UltiSnipsExpandTrigger
-        let g:UltiSnipsExpandTrigger = "<tab>"
-        let g:UltiSnipsJumpForwardTrigger = "<tab>"
-        let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-        set ttimeoutlen=50  " for faster InsertLeave triggering
-        
-        " Disable for these filetypes:
-        let g:ycm_filetype_blacklist = {
-            \ 'tagbar' : 1,
-            \ 'qf' : 1,
-            \ 'notes' : 1,
-            \ 'markdown' : 1,
-            \ 'text' : 1,
-            \ 'vimwiki' : 1,
-            \ 'pandoc' : 1,
-            \ 'infolog' : 1,
-            \ 'mail' : 1,
-            \ }
-        let g:ycm_semantic_triggers = {
-            \ 'tex'  : ['{'],
-            \ 'java': ['.']
+" Plugins options {{
+    " Ultisnips & coc.nvim {{
+        " Make TAB usable between ultisnips and coc.nvim 
+        let g:UltiSnipsExpandTrigger='<Nop>'
+        let g:UltiSnipsJumpForwardTrigger = '<TAB>'
+        let g:UltiSnipsJumpBackwardTrigger = '<S-TAB>'
+        let g:coc_snippet_next = '<TAB>'
+        let g:coc_snippet_prev = '<S-TAB>'
+    " }}
+    " coc.nvim {{
+        " Play nice with LaTeX and digestif
+        let g:coc_filetype_map = {
+            \ 'tex': 'latext',
+            \ 'plaintex': 'tex',
         \ }
-    " }
+
+        " Have coc-status in statusline
+        set statusline^=%{coc#status()}
+    " }}
     
-    "Denite.vim {
-        nnoremap <leader>e :Denite -default-action=vsplitswitch -buffer-name=denite-buffer buffer<cr>
-        nnoremap <leader>f :Denite -default-action=vsplitswitch -buffer-name=denite-file-rec file_rec<cr>
-
-        call denite#custom#map(
-                    \ 'insert',
-                    \ '<Down>',
-                    \ '<denite:move_to_next_line>',
-                    \ 'noremap'
-                    \)
-        call denite#custom#map(
-                    \ 'insert',
-                    \ '<Up>',
-                    \ '<denite:move_to_previous_line>',
-                    \ 'noremap'
-                    \)
-
-    " }
-    
-    " vim-autoformat {
-        "Avoid falling back to default vim formatting
-        let g:autoformat_autoindent = 0
-        let g:autoformat_retab = 0
-        let g:autoformat_remove_trailing_spaces = 0
-        "Autoformat when saving
-        au BufWrite * :Autoformat
-
-    "}
-
-    " YCM C++ {
-        " launch echo | clang -std=c++11 -stdlib=libc++ -v -E -x c++ -
-        " to see which path to include in .ycm_extra_conf.py
-        let g:ycm_global_ycm_extra_conf = '~/.vim/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-    " }
-
-    " Gundo Options {
-        map <silent> <leader>g :GundoToggle<CR>
-    " }
-    
-    " vim-json options {
-        let g:vim_json_syntax_conceal = 0
-    " }
-
-    " vim-cpp11 options support {
-        au BufNewFile,BufRead *.cpp set syntax=cpp11
-    " }
-
-    " indentline --> nothing to do for TeX file {
-        let g:indentLine_fileTypeExclude = ['text', 'sh']
-    "}
-    
-    " CSV {
-        au BufEnter *.csv if !exists('b:csv_arrange_leftalign') | let b:csv_arrange_leftalign = 1 | endif
-    " }
-
-    " YankRing {
-        let g:yankring_history_file = '.yankring_history'
-        let g:yankring_max_element_length = 0
-        nnoremap ,yr :YRShow<CR>
-        nnoremap C-y :YRShow<CR>
-    " }
-    
-    " Custom settings {
-        map <Leader>jt !jq .<CR>
-    " }
-    
-    " LanguageTool {
-        let g:languagetool_jar='$HOME/.vim/LanguageTool/languagetool-commandline.jar'
-    " }
-    
-    " ALE {
-        " Lint only when saving file
-        let g:ale_lint_on_text_changed = 'never'
-        " You can disable this option too
-        " if you don't want linters to run on opening a file
-        let g:ale_lint_on_enter = 0
-
-        " ALE does not recommend using tslint for Typescript linting
-        " See this issue: https://github.com/w0rp/ale/issues/925
-        " TSServer should be used instead
-        let g:ale_linters_ignore = {'typescript': ['eslint', 'tslint']}
-        let g:ale_fixers = {'typescript': ['tslint']}
-        let g:ale_fix_on_save = 1
-        let g:ale_typescript_tslint_use_global = 0
-        let g:ale_typescript_tslint_config_path = ''
-    " }
-    
-    " Javacomplete2 {
-        autocmd FileType java setlocal omnifunc=javacomplete#Complete
-    " }
-" }
-    
-" FileType {
-    " Pour les fichiers .QML"
-    augroup qml
-        au! BufRead,BufNewFile *.qml   set filetype=qml
-    augroup END
-
-    " For Objective-J files
-    augroup objj
-	    au! BufRead,BufNewFile *.j set filetype=objj
-    augroup END
-
-    augroup tdl
-        au BufRead,BufNewFile *.tdl set filetype=tdl
-    augroup END
-
-    "For OGRE rules file
-    augroup grr
-         au! BufNewFile,BufRead *.grr set filetype=grr
-     augroup END
-
-     "For Textile file
-     augroup textile
-         au! BufNewFile,BufRead *.tl,*.txtl,*.textitle set filetype=textile
-     augroup END
-
-    " For XML folding
-    let g:xml_syntax_folding=1
-    au FileType xml setlocal foldmethod=syntax
-
-    " Activate spelling for LaTeX files
-    autocmd BufEnter *.tex setlocal spell
-
-    " Activate 79 characters wrap for tex file
-    autocmd BufRead,BufNewFile *.tex setlocal textwidth=79
-
-    " Activate RIOT syntax
-    au BufNewFile,BufRead *.tag setlocal ft=html
-
-    "Turn filetype detection on
-    filetype plugin indent on
-"}
+    " NerdTree {{
+        nmap <C-n> :NERDTreeToggle<CR>
+    " }}
+" }}
