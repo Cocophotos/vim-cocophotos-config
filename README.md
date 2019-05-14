@@ -134,6 +134,6 @@ Apart from coc.nvim, we have support for:
 
 # Cheat sheet
 
-- <Leader> is `,`
-- Tab in command mode switch between Windows
-- <C-n> to open NerdTree 
+- \<Leader\> is `,`
+- Using `tab` in command mode switch between Windows
+- \<C-n\> to open NerdTree 
