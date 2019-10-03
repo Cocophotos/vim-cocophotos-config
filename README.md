@@ -59,7 +59,7 @@ Then, you need to install the Language Servers for coc.nvim. Start vim and run t
 command:
 
 ```bash
-:CocInstall coc-json coc-css coc-html coc-tsserver coc-tslint-plugin coc-ultisnips coc-python coc-vetur
+:CocInstall coc-json coc-css coc-html coc-tsserver coc-tslint-plugin coc-ultisnips coc-python coc-vetur coc-tailwindcss
 ```
 
 This will install the language servers for:
