@@ -13,6 +13,9 @@
 
 " General {{
     set encoding=utf-8 " Necessary to show Unicode glyphs
+
+    "fix for yankring and neovim
+    let g:yankring_clipboard_monitor=0
 " }}
 
 " Plugins {{
@@ -63,10 +66,13 @@
 
 
     ""Development
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
     "Allow fish shell syntax
     Plug 'dag/vim-fish'
     "Vue JS hightlighting"
+    Plug 'posva/vim-vue'
+    "HTML5+Vue indentation support"
+    Plug 'othree/html5.vim'
     Plug 'posva/vim-vue'
     "Vim C++11 support
     Plug 'vim-scripts/Cpp11-Syntax-Support'
@@ -76,13 +82,20 @@
     Plug 'Vimjas/vim-python-pep8-indent'
     "Syntax hightlighting for TypeScript 
     Plug 'leafgarland/typescript-vim'
+    " Syntax hightlighting for QML
+    Plug 'peterhoeg/vim-qml'
+    " Integration with ReasonML (don't forget to install :CocInstall
+    " coc-reason for coc.nvim support)
+    Plug 'reasonml-editor/vim-reason-plus'
+    " Syntax hightlighting for Nix
+    Plug 'LnL7/vim-nix'
 
     call plug#end()
 " }}
 
 " Vim UI {{
     " Font
-    set gfn=Source\ Code\ Pro\ Regular:h13
+    set gfn=Source\ Code\ Pro\ Regular:h14
     
     " Color scheme
     "set background=dark
@@ -143,6 +156,16 @@
     " Some tips worth having
     "Insert new line in NORMAL mode by pressing Enter
     nmap <CR> o<Esc>
+
+    autocmd FileType c,cpp,java,scala,javascript let b:comment_leader = '// ' | let b:comment_follower = ''
+    autocmd FileType sh,ruby,python      let b:comment_leader = '# ' | let b:comment_follower = ''
+    autocmd FileType conf,fstab          let b:comment_leader = '# ' | let b:comment_follower = ''
+    autocmd FileType plaintex,tex        let b:comment_leader = '% ' | let b:comment_follower = '' 
+    autocmd FileType mail                let b:comment_leader = '> ' | let b:comment_follower = ''
+    autocmd FileType vim                 let b:comment_leader = '" ' | let b:comment_follower = ''
+    autocmd FileType html                let b:comment_leader = '<!-- ' | let b:comment_follower = ' !-->'
+    noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'/')<CR>/<CR>:<C-B>silent <C-E>'<,'>s/$/<C-R>=escape(b:comment_follower,'/')<CR>/g<CR>:nohlsearch<CR>
+    noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'/')<CR>//e<CR>:<C-B>silent <C-E>'<,'>s/<C-R>=escape(b:comment_follower,'/')<CR>$//e<CR>:nohlsearch<CR>
 " }}
 
 " Plugins options {{
@@ -154,6 +177,7 @@
         let g:coc_snippet_next = '<TAB>'
         let g:coc_snippet_prev = '<S-TAB>'
     " }}
+    
     " coc.nvim {{
         " Play nice with LaTeX and digestif
         let g:coc_filetype_map = {
@@ -163,9 +187,27 @@
 
         " Have coc-status in statusline
         set statusline^=%{coc#status()}
+
+        " Use K to show documentation in preview window.
+        nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+        function! s:show_documentation()
+            if (index(['vim','help'], &filetype) >= 0)
+                execute 'h '.expand('<cword>')
+            else
+                call CocAction('doHover')
+            endif
+        endfunction
+
+        " Use ctrl+space to trigger completion
+        inoremap <silent><expr> <C-@> coc#refresh()
     " }}
     
     " NerdTree {{
         nmap <C-n> :NERDTreeToggle<CR>
+    " }}
+
+    " Vue {{
+        au BufRead,BufNewFile *.vue set filetype=vue.html 
     " }}
 " }}

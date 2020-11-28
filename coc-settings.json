@@ -15,6 +15,7 @@
             "command": "digestif",
             "filetypes": ["tex", "plaintex", "context"]
         }
-    }
+    },
+    "rust-client.disableRustup": true
 }
 

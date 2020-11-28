@@ -7,8 +7,7 @@ Vim config used for programming notably in:
 - HTML
 - VueJS
 - Python
-- Scala (soon)
-- C/C++ (soon)
+- Rust
 
 # Installation
 
@@ -59,18 +58,20 @@ Then, you need to install the Language Servers for coc.nvim. Start vim and run t
 command:
 
 ```bash
-:CocInstall coc-json coc-css coc-html coc-tsserver coc-tslint-plugin coc-ultisnips coc-python coc-vetur coc-tailwindcss
+:CocInstall coc-json coc-css coc-html coc-tsserver coc-tslint-plugin coc-ultisnips coc-python coc-vetur coc-tailwindcss coc-rls
 ```
 
 This will install the language servers for:
 
-- JSON
-- CSS
-- HTML
-- TypeScript (+ the linting plugin)
-- Ultisnips (for snippets)
-- Python
-- VueJS (with vetur)
+- JSON (coc-json)
+- CSS (coc-css)
+- HTML (coc-html)
+- TypeScript (+ the linting plugin) (coc-tsserver, coc-tslint-plugin)
+- Ultisnips (for snippets) (coc-utilsnips)
+- Python  (coc-python)
+- VueJS (with vetur & coc-vetur)
+- TailwindCSS (coc-tailwindcss)
+- Rust (coc-rls)
 
 You can choose which language servers you want to install, but we always recommend:
 
@@ -84,7 +85,19 @@ Some language servers need to be installed separately:
 - [digestif](https://github.com/astoff/digestif) for LaTeX
 - [flow](https://github.com/facebook/flow) for Flow typing in JavaScript
 
-Our coc-config provides the right configuration for those languager servers. 
+Our coc-config provides the right configuration for those languager servers.
+
+### Languages
+
+- For [Rust](https://www.rust-lang.org/) you need to have rustup installed (see [here](https://github.com/neoclide/coc-rls)) and change our config to enable:
+
+```json
+{
+    "rust-client.disableRustup": true
+}
+```
+
+in `coc-settings.json`. Our config is made to be used with Nix & NixOS in a shell.
 
 ### Copy/Paste coc-config
 
@@ -131,6 +144,7 @@ Apart from coc.nvim, we have support for:
 - CMake support
 - PEP8 indentation for Python
 - TypeScript/JavaScript (syntax hightlighting)
+- Nix (syntax hightlighting)
 
 # Cheat sheet
 
