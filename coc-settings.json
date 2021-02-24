@@ -1,16 +1,8 @@
 {
-    "tslint.autoFixOnSave": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.format.enable": true,
     "tsserver.enableJavascript": false,
     "languageserver": {
-        "flow": {
-            "command": "npx",
-            "args": ["flow", "lsp"],
-            "filetypes": ["javascript", "javascriptreact"],
-            "initializationOptions": {},
-            "requireRootPattern": true,
-            "settings": {},
-            "rootPatterns": [".flowconfig"]
-        },
         "digestif": {
             "command": "digestif",
             "filetypes": ["tex", "plaintex", "context"]
