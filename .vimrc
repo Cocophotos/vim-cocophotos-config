@@ -6,7 +6,7 @@
         set nocompatible
         "Ensure a POSIX-compliant SHELL so that Vundle will run properly
         if $SHELL =~ 'bin/fish'
-            set shell=/bin/bash
+            set shell=/bin/sh
         endif
     "}}
 "}}
@@ -23,6 +23,8 @@
 
     ""Theming
     Plug 'morhetz/gruvbox'
+    Plug 'sonph/onehalf', {'rtp': 'vim/'}
+    Plug 'NLKNguyen/papercolor-theme'
 
 
     ""General
@@ -30,7 +32,8 @@
     Plug 'tpope/vim-surround'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'easymotion/vim-easymotion'
-    Plug 'bling/vim-airline'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'vim-scripts/YankRing.vim'
     "Autoclose parens, brackets, quotes
     Plug 'Raimondi/delimitMate'
@@ -82,6 +85,8 @@
     Plug 'Vimjas/vim-python-pep8-indent'
     "Syntax hightlighting for TypeScript 
     Plug 'leafgarland/typescript-vim'
+    "Syntax hightlighting for TypeScript + React
+    Plug 'peitalin/vim-jsx-typescript'
     " Syntax hightlighting for QML
     Plug 'peterhoeg/vim-qml'
     " Integration with ReasonML (don't forget to install :CocInstall
@@ -98,9 +103,11 @@
     set gfn=Source\ Code\ Pro\ Regular:h14
     
     " Color scheme
-    "set background=dark
+    set background=dark
     "set background=light
-    colorscheme gruvbox 
+    "colorscheme gruvbox 
+    colorscheme PaperColor 
+    let g:airline_theme='onedark'
 
     if !has('gui_running')
         let g:solarized_termcolors=256
@@ -176,6 +183,9 @@
         let g:UltiSnipsJumpBackwardTrigger = '<S-TAB>'
         let g:coc_snippet_next = '<TAB>'
         let g:coc_snippet_prev = '<S-TAB>'
+
+        " Directory for snippets
+        let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
     " }}
     
     " coc.nvim {{
@@ -201,6 +211,16 @@
 
         " Use ctrl+space to trigger completion
         inoremap <silent><expr> <C-@> coc#refresh()
+
+
+        " Make <CR> auto-select the first completion item and notify coc.nvim to
+        " format on enter, <cr> could be remapped by other vim plugin
+        inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                    \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+        
+        " Use tab and S-tab to navigate into completion popup
+        inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+        inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     " }}
     
     " NerdTree {{

@@ -1,6 +1,16 @@
 {
     "eslint.autoFixOnSave": true,
     "eslint.format.enable": true,
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "vue",
+        "vue.html",
+        "markdown"
+    ],
     "tsserver.enableJavascript": false,
     "languageserver": {
         "digestif": {
@@ -8,6 +18,7 @@
             "filetypes": ["tex", "plaintex", "context"]
         }
     },
-    "rust-client.disableRustup": true
+    "rust-client.disableRustup": true,
+    "coc.preferences.formatOnSaveFiletypes": ["rust"]
 }
 

@@ -58,7 +58,7 @@ Then, you need to install the Language Servers for coc.nvim. Start vim and run t
 command:
 
 ```bash
-:CocInstall coc-json coc-css coc-html coc-tsserver coc-eslint coc-ultisnips coc-python coc-vetur coc-tailwindcss coc-rls
+:CocInstall coc-json coc-css coc-html coc-tsserver coc-eslint coc-ultisnips coc-python coc-vetur coc-tailwindcss coc-rls coc-rust-analyzer
 ```
 
 This will install the language servers for:
@@ -71,7 +71,7 @@ This will install the language servers for:
 - Python  (coc-python)
 - VueJS (with vetur & coc-vetur)
 - TailwindCSS (coc-tailwindcss)
-- Rust (coc-rls)
+- Rust (coc-rls & coc-rust-analyzer)
 
 You can choose which language servers you want to install, but we always recommend:
 
