@@ -13,7 +13,6 @@ Vim config used for programming notably in:
 
 You need a fairly recent version of [NeoVim](https://github.com/neovim/neovim/wiki/Installing-Neovim) (0.3.x) to work. It is possible to make it work on Vim 8+ but it is not supported as is.
 
-
 Just move the .vimrc into your $HOME and create the .vim directory
 
 ```bash
@@ -21,7 +20,7 @@ Just move the .vimrc into your $HOME and create the .vim directory
 mkdir $HOME/.vim
 
 #Move the config file .vimrc
-# WARNING : this may erase an old .vimrc 
+# WARNING : this may erase an old .vimrc
 mv .vimrc $HOME/.vimrc
 ```
 
@@ -44,7 +43,7 @@ To install the new bundle, open a terminal and type:
 vim +PlugInstall
 ```
 
-When complete, just type *:q* in Normal Mode to exit Vim.
+When complete, just type _:q_ in Normal Mode to exit Vim.
 
 ## CocConfig and CocInstall
 
@@ -54,11 +53,11 @@ You should read the documentation of [coc.nvim](https://github.com/neoclide/coc.
 
 ### Install language servers
 
-Then, you need to install the Language Servers for coc.nvim. Start vim and run the 
+Then, you need to install the Language Servers for coc.nvim. Start vim and run the
 command:
 
 ```bash
-:CocInstall coc-json coc-css coc-html coc-tsserver coc-eslint coc-ultisnips coc-python coc-vetur coc-tailwindcss coc-rls coc-rust-analyzer
+:CocInstall coc-json coc-css coc-html coc-tsserver coc-eslint coc-ultisnips coc-pyright coc-vetur coc-tailwindcss coc-rls coc-rust-analyzer
 ```
 
 This will install the language servers for:
@@ -68,7 +67,7 @@ This will install the language servers for:
 - HTML (coc-html)
 - TypeScript (+ the linting plugin) (coc-tsserver, coc-eslint)
 - Ultisnips (for snippets) (coc-utilsnips)
-- Python  (coc-python)
+- Python (coc-pyright)
 - VueJS (with vetur & coc-vetur)
 - TailwindCSS (coc-tailwindcss)
 - Rust (coc-rls & coc-rust-analyzer)
@@ -93,11 +92,28 @@ Our coc-config provides the right configuration for those languager servers.
 
 ```json
 {
-    "rust-client.disableRustup": true
+  "rust-client.disableRustup": true
 }
 ```
 
 in `coc-settings.json`. Our config is made to be used with Nix & NixOS in a shell.
+
+- For [Python](https//www.python.org), you need to have installed:
+  - pylint
+  - autopep8
+  - pyright
+  - isort
+  - rope
+
+Be aware that you need to put your venvPath into the `coc-settings.json` file. `pyright` uses a settings file for each project if needed. It needs to be called `pyrightconfig.json` and should be placed at project root. If you want to use the venv defined in `coc-settings.json`, just put:
+
+```json
+{
+  "venv": "coc"
+}
+```
+
+inside Pyright settings, otherwise, you can always change the venv for each project.
 
 ### Copy/Paste coc-config
 
@@ -150,4 +166,4 @@ Apart from coc.nvim, we have support for:
 
 - \<Leader\> is `,`
 - Using `tab` in command mode switch between Windows
-- \<C-n\> to open NerdTree 
+- \<C-n\> to open NerdTree

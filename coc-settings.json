@@ -1,24 +1,24 @@
 {
-    "eslint.autoFixOnSave": true,
-    "eslint.format.enable": true,
-    "eslint.probe": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "html",
-        "vue",
-        "vue.html",
-        "markdown"
-    ],
-    "tsserver.enableJavascript": false,
-    "languageserver": {
-        "digestif": {
-            "command": "digestif",
-            "filetypes": ["tex", "plaintex", "context"]
-        }
-    },
-    "rust-client.disableRustup": true,
-    "coc.preferences.formatOnSaveFiletypes": ["rust"]
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "vue.html",
+    "markdown"
+  ],
+  "languageserver": {
+    "digestif": {
+      "command": "digestif",
+      "filetypes": ["tex", "plaintex", "context"]
+    }
+  },
+  "rust-client.disableRustup": true,
+  "coc.preferences.formatOnSave": true,
+  "pyright.enable": true,
+  "python.venvPath": "${env:HOME}/.pyenv"
 }
-
